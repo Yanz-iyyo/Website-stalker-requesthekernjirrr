@@ -93,6 +93,22 @@ h1 {
     font-weight: 600;
 }
 
+.threads-icon {
+    width: 1.8em;
+    height: 1.8em;
+    fill: currentColor;
+}
+
+.platform-option[data-platform="threads"] .threads-icon {
+    color: #000000;
+}
+
+.result-card .platform-header .threads-icon {
+    width: 2em;
+    height: 2em;
+    margin-right: 15px;
+}
+
 .input-group {
     display: flex;
     gap: 10px;
@@ -360,6 +376,15 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+footer p {
+    margin-bottom: 8px;
+}
+
+footer i.fab.fa-telegram {
+    color: #0088cc;
+    margin-right: 5px;
+}
+
 @media (max-width: 768px) {
     .platform-selector {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -377,4 +402,4 @@ footer {
     h1 {
         font-size: 2rem;
     }
-}
+    }
