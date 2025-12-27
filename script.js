@@ -1,4 +1,3 @@
-// Konfigurasi API
 const API_CONFIG = {
     tiktok: {
         url: "https://api.fikmydomainsz.xyz/stalk/tiktok",
@@ -34,10 +33,8 @@ const API_CONFIG = {
     }
 };
 
-// Platform yang aktif
 let activePlatform = 'tiktok';
 
-// Contoh username untuk placeholder
 const exampleUsernames = {
     tiktok: 'yyanzxd',
     instagram: 'This_is.yanz',
@@ -49,34 +46,22 @@ const exampleUsernames = {
     youtube: 'siputzx'
 };
 
-// Inisialisasi
 function init() {
-    // Set placeholder berdasarkan platform aktif
     updatePlaceholder();
     
-    // Event listener untuk platform selector
     const platformOptions = document.querySelectorAll('.platform-option');
     platformOptions.forEach(option => {
         option.addEventListener('click', () => {
-            // Hapus class active dari semua platform
             platformOptions.forEach(opt => opt.classList.remove('active'));
-            
-            // Tambah class active ke platform yang dipilih
             option.classList.add('active');
-            
-            // Update platform aktif
             activePlatform = option.dataset.platform;
-            
-            // Update placeholder
             updatePlaceholder();
         });
     });
     
-    // Event listener untuk tombol stalk
     const stalkButton = document.getElementById('stalkButton');
     stalkButton.addEventListener('click', stalkAccount);
     
-    // Event listener untuk tekan Enter di input
     const usernameInput = document.getElementById('usernameInput');
     usernameInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -85,14 +70,12 @@ function init() {
     });
 }
 
-// Update placeholder input
 function updatePlaceholder() {
     const usernameInput = document.getElementById('usernameInput');
     const example = exampleUsernames[activePlatform];
     usernameInput.placeholder = `Masukkan ${activePlatform} username... Contoh: ${example}`;
 }
 
-// Fungsi utama untuk stalk akun
 async function stalkAccount() {
     const usernameInput = document.getElementById('usernameInput');
     const loadingIndicator = document.getElementById('loadingIndicator');
@@ -107,7 +90,6 @@ async function stalkAccount() {
         return;
     }
     
-    // Tampilkan loading
     loadingIndicator.classList.add('active');
     errorMessage.classList.remove('active');
     resultContainer.classList.remove('active');
@@ -116,7 +98,6 @@ async function stalkAccount() {
         const apiConfig = API_CONFIG[activePlatform];
         const apiUrl = `${apiConfig.url}?${apiConfig.param}=${encodeURIComponent(username)}`;
         
-        // Fetch data dari API
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
@@ -125,16 +106,13 @@ async function stalkAccount() {
         
         const data = await response.json();
         
-        // Sembunyikan loading
         loadingIndicator.classList.remove('active');
         
-        // Periksa status response
         if ((data.status === false) || (data.status === undefined && !data.creator)) {
             showError('Data tidak ditemukan. Periksa kembali username yang dimasukkan.');
             return;
         }
         
-        // Tampilkan hasil
         displayResult(data);
         
     } catch (error) {
@@ -144,7 +122,6 @@ async function stalkAccount() {
     }
 }
 
-// Tampilkan error
 function showError(message) {
     const errorMessage = document.getElementById('errorMessage');
     const errorText = document.getElementById('errorText');
@@ -153,12 +130,10 @@ function showError(message) {
     errorMessage.classList.add('active');
 }
 
-// Tampilkan hasil
 function displayResult(data) {
     const resultContainer = document.getElementById('resultContainer');
     resultContainer.innerHTML = '';
     
-    // Buat kartu hasil berdasarkan platform
     let resultHTML = '';
     
     switch (activePlatform) {
@@ -193,11 +168,9 @@ function displayResult(data) {
     resultContainer.innerHTML = resultHTML;
     resultContainer.classList.add('active');
     
-    // Scroll ke hasil
     resultContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Template kartu untuk TikTok
 function createTikTokCard(data) {
     const result = data.result;
     return `
@@ -249,7 +222,6 @@ function createTikTokCard(data) {
     `;
 }
 
-// Template kartu untuk Instagram
 function createInstagramCard(data) {
     const result = data.data;
     return `
@@ -318,7 +290,6 @@ function createInstagramCard(data) {
     `;
 }
 
-// Template kartu untuk GitHub
 function createGitHubCard(data) {
     const result = data.result;
     return `
@@ -382,7 +353,6 @@ function createGitHubCard(data) {
     `;
 }
 
-// Template kartu untuk NPM
 function createNPMCard(data) {
     const result = data.result;
     return `
@@ -439,7 +409,6 @@ function createNPMCard(data) {
     `;
 }
 
-// Template kartu untuk Minecraft
 function createMinecraftCard(data) {
     const result = data.result;
     return `
@@ -476,13 +445,14 @@ function createMinecraftCard(data) {
     `;
 }
 
-// Template kartu untuk Threads
 function createThreadsCard(data) {
     const result = data.data;
     return `
         <div class="result-card">
             <div class="platform-header">
-                <i class="fab fa-threads" style="color:#000000;"></i>
+                <svg class="threads-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 2em; height: 2em; color: #000000;">
+                    <path d="M5.5 4C4.12 4 3 5.12 3 6.5v11C3 18.88 4.12 20 5.5 20H12v-5H8v-2h4V9.5C12 7.57 13.57 6 15.5 6H20V4h-4.5C12.47 4 10 6.47 10 9.5V12H8v2h2v5h6.5c1.38 0 2.5-1.12 2.5-2.5v-11C19 5.12 17.88 4 16.5 4h-11z"/>
+                </svg>
                 <h2 class="platform-title">Threads Profile</h2>
             </div>
             
@@ -522,7 +492,6 @@ function createThreadsCard(data) {
     `;
 }
 
-// Template kartu untuk Twitter
 function createTwitterCard(data) {
     const result = data.data;
     return `
@@ -582,7 +551,6 @@ function createTwitterCard(data) {
     `;
 }
 
-// Template kartu untuk YouTube
 function createYouTubeCard(data) {
     const result = data.data;
     const channel = result.channel;
@@ -641,5 +609,4 @@ function createYouTubeCard(data) {
     `;
 }
 
-// Jalankan inisialisasi saat halaman dimuat
 window.addEventListener('DOMContentLoaded', init);
