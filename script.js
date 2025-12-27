@@ -450,9 +450,7 @@ function createThreadsCard(data) {
     return `
         <div class="result-card">
             <div class="platform-header">
-                <svg class="threads-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 2em; height: 2em; color: #000000;">
-                    <path d="M5.5 4C4.12 4 3 5.12 3 6.5v11C3 18.88 4.12 20 5.5 20H12v-5H8v-2h4V9.5C12 7.57 13.57 6 15.5 6H20V4h-4.5C12.47 4 10 6.47 10 9.5V12H8v2h2v5h6.5c1.38 0 2.5-1.12 2.5-2.5v-11C19 5.12 17.88 4 16.5 4h-11z"/>
-                </svg>
+                <i class="fab fa-threads" style="color:#000000;"></i>
                 <h2 class="platform-title">Threads Profile</h2>
             </div>
             
